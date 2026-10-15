@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BakeDesk — Central Order Management for Irish Bakeries & Cafes</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --accent: #f59e0b;
+            --bg-page: #f8fafc;
+            --card-bg: #ffffff;
+            --text-dark: #0f172a;
+            --text-muted: #475569;
+            --border-color: #e2e8f0;
+            --success-bg: #ecfdf5;
+            --success-text: #065f46;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-page);
+            color: var(--text-dark);
+            line-height: 1.5;
+            padding: 1rem;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        /* Top Bar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0 1.5rem 0;
+        }
+
+        .brand-logo {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -0.025em;
+        }
+
+        .region-badge {
+            background-color: #e0e7ff;
+            color: #3730a3;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.25rem 0.6rem;
+            border-radius: 9999px;
+            text-transform: uppercase;
+        }
+
+        /* Hero Section */
+        header {
+            text-align: left;
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 2.1rem;
+            font-weight: 800;
+            line-height: 1.15;
+            letter-spacing: -0.03em;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        h1 span {
+            color: var(--primary);
+        }
+
+        .hero-subtitle {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .btn {
+            display: inline-block;
+            width: 100%;
+            padding: 0.9rem 1.25rem;
+            font-size: 1rem;
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 10px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+
+        .btn-secondary {
+            background-color: #ffffff;
+            color: var(--text-dark);
+            border: 1px solid var(--border-color);
+        }
+
+        /* Section Cards */
+        .card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1.25rem;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+        }
+
+        .card-header {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.01em;
+        }
+
+        /* Quote / Pain Point */
+        .quote-box {
+            background-color: #f8fafc;
+            border-left: 3px solid var(--accent);
+            padding: 0.85rem 1rem;
+            font-style: italic;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* Step List */
+        .step-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .step-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .step-num {
+            background: #eff6ff;
+            color: var(--primary);
+            font-weight: 700;
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 0.85rem;
+        }
+
+        .step-details h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.1rem;
+        }
+
+        .step-details p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Pricing Card */
+        .price-display {
+            font-size: 2.25rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin: 0.5rem 0;
+        }
+
+        .price-display span {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        /* Form Controls */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        input[type="email"] {
+            width: 100%;
+            padding: 0.85rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            outline: none;
+            background: #f8fafc;
+        }
+
+        input[type="email"]:focus {
+            border-color: var(--primary);
+            background: #ffffff;
+        }
+
+        .success-box {
+            display: none;
+            background: var(--success-bg);
+            color: var(--success-text);
+            padding: 0.85rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-align: center;
+            border: 1px solid #a7f3d0;
+        }
+
+        footer {
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            padding: 1.5rem 0;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="brand-logo">BakeDesk</div>
+        <div class="region-badge">Ireland</div>
+    </nav>
+
+    <header>
+        <h1>Stop losing custom bakery orders in <span>WhatsApp & DMs</span>.</h1>
+        <p class="hero-subtitle">Bring phone orders, Instagram DMs, and walk-in requests into one simple kitchen dashboard. Guaranteed zero missed allergen notes.</p>
+        
+        <div class="cta-group">
+            <a href="app.html" class="btn btn-primary">Try Interactive Demo</a>
+            <a href="#waitlist" class="btn btn-secondary">Join Early Access</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="card">
+            <div class="card-header">The Daily Kitchen Reality</div>
+            <div class="quote-box">
+                "It's 7 AM on Saturday. I'm flour-dusted trying to cross-reference Instagram DMs, paper dockets, and WhatsApp messages to check if the weekend birthday cake had a nut allergy. We need one central hub."
+            </div>
+            <p style="font-size: 0.85rem; color: var(--text-muted); text-align: right;">— Head Baker, Dublin 2</p>
+        </section>
+
+        <section class="card">
+            <div class="card-header">Built for busy kitchen workflows</div>
+            
+            <div class="step-row">
+                <div class="step-num">1</div>
+                <div class="step-details">
+                    <h3>Single Central Queue</h3>
+                    <p>Log incoming orders from phone calls, WhatsApp messages, or walk-ins into one organized feed.</p>
+                </div>
+            </div>
+
+            <div class="step-row">
+                <div class="step-num">2</div>
+                <div class="step-details">
+                    <h3>Automatic Allergen Highlighting</h3>
+                    <p>Critical dietary requests and severe allergies stand out in bold red badges so they can't be missed.</p>
+                </div>
+            </div>
+
+            <div class="step-row">
+                <div class="step-num">3</div>
+                <div class="step-details">
+                    <h3>Mobile Prep Station Views</h3>
+                    <p>Filter by fulfillment date or kitchen station directly from any phone or tablet on the prep table.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="card" style="text-align: center;">
+            <div class="card-header">Simple Flat Rate</div>
+            <div class="price-display">€39 <span>/ month</span></div>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem;">Includes unlimited orders, unlimited staff devices, and full onboarding support.</p>
+            <a href="app.html" class="btn btn-primary">Try Interactive Demo</a>
+        </section>
+
+        <section id="waitlist" class="card">
+            <div class="card-header">Get Early Access in Ireland</div>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">We are onboarding 10 independent bakeries and cafes this month. Reserve your place below.</p>
+            
+            <form id="waitlistForm" onsubmit="handleWaitlistSubmit(event)">
+                <input type="email" id="email" placeholder="e.g. hello@yourbakery.ie" required>
+                <button type="submit" class="btn btn-primary">Join Waitlist</button>
+            </form>
+            <div id="waitlistSuccess" class="success-box">
+                Thanks! You're on the list. We'll be in touch with early access details soon.
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        &copy; 2026 BakeDesk Ireland. Built for artisan bakers & cafes.
+    </footer>
+
+    <script>
+        function handleWaitlistSubmit(e) {
+            e.preventDefault();
+            const form = document.getElementById('waitlistForm');
+            const successBox = document.getElementById('waitlistSuccess');
+            
+            // Local mockup behavior - no remote data sent
+            form.style.display = 'none';
+            successBox.style.display = 'block';
+        }
+    </script>
+
+</body>
+</html>
